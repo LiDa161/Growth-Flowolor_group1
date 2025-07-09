@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: bcdeceacdbf2a5a4294ece0f603face2
+  productGUID: 5808e28a64ab59147bb769bb68bf0868
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Growth Flowolor_group1
+  productName: GrowthFlowolor_group1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -837,14 +837,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Growth Flowolor_group1
+  metroPackageName: GrowthFlowolor_group1
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Growth Flowolor_group1
+  metroApplicationDescription: GrowthFlowolor_group1
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -913,12 +913,12 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: c1f8d329-07f7-4104-9a95-f21d8ca0fdec
+  cloudProjectId: 55dcc6b2-8a15-43c3-b5ef-a70572c26d7e
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Growth Flowolor_group1
+  projectName: GrowthFlowolor_group1
   organizationId: duyanhnehi
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
