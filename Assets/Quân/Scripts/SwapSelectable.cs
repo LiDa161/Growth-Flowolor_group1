@@ -6,7 +6,7 @@ public class SelectableSwapper : MonoBehaviour
     public Transform childToMove;
     public float moveOffsetY = 1f;
 
-    [Header("Khối hiển thị marker khi chọn")]
+    [Header("Khối hiển thị marker khi chọn (có thể để trống)")]
     public GameObject markerObject;
 
     private Vector3 originalPos;
@@ -17,13 +17,12 @@ public class SelectableSwapper : MonoBehaviour
         if (childToMove != null)
             originalPos = childToMove.localPosition;
 
-        if (markerObject != null)
-            markerObject.SetActive(false); // Ẩn marker lúc đầu
+        SafeSetMarker(false); // Ẩn marker nếu có
     }
 
     void OnMouseDown()
     {
-        // Bấm lại chính nó → hủy chọn
+        // Click lại chính nó → hủy chọn
         if (selected == this)
         {
             ResetState();
@@ -31,22 +30,20 @@ public class SelectableSwapper : MonoBehaviour
             return;
         }
 
-        // Nếu chưa có khối nào được chọn → chọn khối này
+        // Chưa chọn gì → chọn nó
         if (selected == null)
         {
             selected = this;
             MoveChildUp();
-            ShowMarker(true);
+            SafeSetMarker(true);
             return;
         }
 
-        // Nếu đang có khối khác được chọn → thực hiện hoán đổi
+        // Đã chọn A, bấm vào B → hoán đổi
         if (selected != null)
         {
-            // Đổi vị trí 2 khối
             SwapWith(selected);
 
-            // Reset cả hai khối
             selected.ResetState();
             this.ResetState();
 
@@ -56,7 +53,6 @@ public class SelectableSwapper : MonoBehaviour
 
     void Update()
     {
-        // Nếu đang chọn → click ra ngoài → hủy chọn
         if (selected == this && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,16 +76,16 @@ public class SelectableSwapper : MonoBehaviour
             childToMove.localPosition = originalPos;
     }
 
-    void ShowMarker(bool show)
+    void SafeSetMarker(bool show)
     {
-        if (markerObject != null)
+        if (markerObject != null && markerObject.activeSelf != show)
             markerObject.SetActive(show);
     }
 
     public void ResetState()
     {
         MoveChildDown();
-        ShowMarker(false);
+        SafeSetMarker(false);
     }
 
     void SwapWith(SelectableSwapper other)
@@ -113,6 +109,7 @@ public class SelectableSwapper : MonoBehaviour
             t.position = Vector3.MoveTowards(t.position, target, speed * Time.deltaTime);
             yield return null;
         }
+
         t.position = target;
     }
 }
