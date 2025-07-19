@@ -1,37 +1,33 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public GameObject canvasHome;
-    public GameObject canvasHelp;
-    public GameObject canvasLevel;
+    public GameObject canvasGuide;
+    public GameObject canvasSelectLevel;
     public GameObject canvasWin;
     public GameObject canvasLose;
     public GameObject currentLevel;
     public GameObject[] levelPrefabs;
 
-    public AudioSource audioSource;
-    public AudioClip bgMusic;
-    public AudioClip winSound;
-    public AudioClip loseSound;
-
     public Transform levelParent;
 
     public Button buttonPlay;
-    public Button buttonHelp;
-    public Button buttonExitHelp;
-    public Button buttonExitLevel;
+    public Button buttonGuide;
+    public Button buttonExitGuide;
+    public Button buttonExitSelectLevel;
 
     public Button[] levelButtons;
-    public Text moveCountText;
-    public Text scoreText;
+    public TextMeshProUGUI moveCountText;
+    public TextMeshProUGUI scoreText;
 
     private int currentLevelIndex = -1;
-    private List<WinBlock> winBlocks = new List<WinBlock>();
+    private List<FinalBlock> finalBlocks = new List<FinalBlock>();
     private int moveCount = 0;
 
     void Awake()
@@ -51,29 +47,22 @@ public class GameManager : MonoBehaviour
     {
         ShowCanvas(canvasHome);
 
-        if (audioSource != null && bgMusic != null)
-        {
-            audioSource.clip = bgMusic;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-
         buttonPlay.onClick.AddListener(() =>
         {
-            ShowCanvas(canvasLevel);
+            ShowCanvas(canvasSelectLevel);
         });
 
-        buttonHelp.onClick.AddListener(() =>
+        buttonGuide.onClick.AddListener(() =>
         {
-            ShowCanvas(canvasHelp);
+            ShowCanvas(canvasGuide);
         });
 
-        buttonExitHelp.onClick.AddListener(() =>
+        buttonExitGuide.onClick.AddListener(() =>
         {
             ShowCanvas(canvasHome);
         });
 
-        buttonExitLevel.onClick.AddListener(() =>
+        buttonExitSelectLevel.onClick.AddListener(() =>
         {
             ShowCanvas(canvasHome);
         });
@@ -92,10 +81,10 @@ public class GameManager : MonoBehaviour
     void ShowCanvas(GameObject targetCanvas)
     {
         canvasHome.SetActive(targetCanvas == canvasHome);
-        canvasHelp.SetActive(targetCanvas == canvasHelp);
+        canvasGuide.SetActive(targetCanvas == canvasGuide);
         canvasWin.SetActive(targetCanvas == canvasWin);
         canvasLose.SetActive(targetCanvas == canvasLose);
-        canvasLevel.SetActive(targetCanvas == canvasLevel);
+        canvasSelectLevel.SetActive(targetCanvas == canvasSelectLevel);
         if (targetCanvas == canvasWin || targetCanvas == canvasLose)
         {
             DisableOtherButtons(targetCanvas);
@@ -109,7 +98,7 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(int level)
     {
         HideAllCanvases();
-        winBlocks.Clear();
+        finalBlocks.Clear();
         moveCount = 0;
         UpdateMoveCountText();
         if (currentLevel != null)
@@ -127,13 +116,13 @@ public class GameManager : MonoBehaviour
             {
                 string lowerName = btn.name.ToLower();
 
-                if (lowerName.Contains("home"))
+                if (lowerName.Contains("Home"))
                 {
                     btn.onClick.RemoveAllListeners();
                     btn.onClick.AddListener(() => ShowCanvas(canvasHome));
                 }
 
-                if (lowerName.Contains("replay"))
+                if (lowerName.Contains("Restart"))
                 {
                     btn.onClick.RemoveAllListeners();
                     btn.onClick.AddListener(() => LoadLevel(currentLevelIndex + 1));
@@ -145,15 +134,10 @@ public class GameManager : MonoBehaviour
     public void ShowWinCanvas()
     {
         canvasHome.SetActive(false);
-        canvasHelp.SetActive(false);
+        canvasGuide.SetActive(false);
         canvasLose.SetActive(false);
         canvasWin.SetActive(true);
         DisableOtherButtons(canvasWin);
-
-        if (audioSource != null && winSound != null)
-        {
-            audioSource.PlayOneShot(winSound);
-        }
 
         if (scoreText != null)
         {
@@ -165,7 +149,7 @@ public class GameManager : MonoBehaviour
         {
             string lowerName = btn.name.ToLower();
 
-            if (lowerName.Contains("home"))
+            if (lowerName.Contains("Home"))
             {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
@@ -174,7 +158,7 @@ public class GameManager : MonoBehaviour
                     ShowCanvas(canvasHome);
                 });
             }
-            else if (lowerName.Contains("next"))
+            else if (lowerName.Contains("Next"))
             {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
@@ -190,7 +174,7 @@ public class GameManager : MonoBehaviour
                     }
                 });
             }
-            else if (lowerName.Contains("reset"))
+            else if (lowerName.Contains("Restart"))
             {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
@@ -212,22 +196,17 @@ public class GameManager : MonoBehaviour
     public void ShowLoseCanvas()
     {
         canvasHome.SetActive(false);
-        canvasHelp.SetActive(false);
+        canvasGuide.SetActive(false);
         canvasWin.SetActive(false);
         canvasLose.SetActive(true);
         DisableOtherButtons(canvasLose);
-
-        if (audioSource != null && loseSound != null)
-        {
-            audioSource.PlayOneShot(loseSound);
-        }
 
         Button[] loseButtons = canvasLose.GetComponentsInChildren<Button>();
         foreach (Button btn in loseButtons)
         {
             string lowerName = btn.name.ToLower();
 
-            if (lowerName.Contains("home"))
+            if (lowerName.Contains("Home"))
             {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
@@ -236,7 +215,7 @@ public class GameManager : MonoBehaviour
                     ShowCanvas(canvasHome);
                 });
             }
-            else if (lowerName.Contains("reset"))
+            else if (lowerName.Contains("Restart"))
             {
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
@@ -270,8 +249,8 @@ public class GameManager : MonoBehaviour
     void HideAllCanvases()
     {
         canvasHome.SetActive(false);
-        canvasHelp.SetActive(false);
-        canvasLevel.SetActive(false);
+        canvasGuide.SetActive(false);
+        canvasSelectLevel.SetActive(false);
         canvasWin.SetActive(false);
         canvasLose.SetActive(false);
 
@@ -283,17 +262,17 @@ public class GameManager : MonoBehaviour
         return currentLevelIndex;
     }
 
-    public void RegisterWinBlock(WinBlock block)
+    public void RegisterWinBlock(FinalBlock block)
     {
-        if (!winBlocks.Contains(block))
+        if (!finalBlocks.Contains(block))
         {
-            winBlocks.Add(block);
+            finalBlocks.Add(block);
         }
     }
 
     public void CheckAllWinBlocksMatched()
     {
-        foreach (WinBlock block in winBlocks)
+        foreach (FinalBlock block in finalBlocks)
         {
             if (!block.IsMatched())
                 return;
