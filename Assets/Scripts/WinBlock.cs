@@ -12,6 +12,7 @@ public class WinBlock : MonoBehaviour
 
     [Header("GameObject xuất hiện khi đủ màu")]
     [SerializeField] private GameObject appearObject;
+
     [SerializeField] private float moveUpDistance = 1f;
     [SerializeField] private float moveDuration = 1f;
 
@@ -24,7 +25,7 @@ public class WinBlock : MonoBehaviour
 
     private Vector3 lastVisiblePosition;
 
-    void Awake()
+    private void Awake()
     {
         blockRenderer = GetComponent<Renderer>();
         if (!blockRenderer)
@@ -47,10 +48,13 @@ public class WinBlock : MonoBehaviour
         if (appearObject != null)
             appearObject.SetActive(false);
 
-        GameManager.Instance?.RegisterWinBlock(this);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RegisterWinBlock(this);
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("ClickableBlock")) return;
 
@@ -79,7 +83,7 @@ public class WinBlock : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("ClickableBlock")) return;
 
@@ -89,7 +93,7 @@ public class WinBlock : MonoBehaviour
         RecheckMatchState();
     }
 
-    void RecheckMatchState()
+    private void RecheckMatchState()
     {
         if (currentCollidingBlocks.Count == 0)
         {
@@ -104,7 +108,7 @@ public class WinBlock : MonoBehaviour
         }
     }
 
-    void UpdateVisual()
+    private void UpdateVisual()
     {
         if (matchedMaterialNames.Count >= targetMaterials.Count && fullyMatchedMaterial != null)
         {
@@ -134,11 +138,14 @@ public class WinBlock : MonoBehaviour
         }
         else
         {
-            GameManager.Instance?.CheckAllWinBlocksMatched();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CheckAllWinBlocksMatched(); // Fix for UNT0008: Avoid null propagation.
+            }
         }
     }
 
-    void PlayAppearEffectThenNotify()
+    private void PlayAppearEffectThenNotify()
     {
         if (appearObject == null) return;
 
@@ -152,11 +159,14 @@ public class WinBlock : MonoBehaviour
             .SetEase(Ease.OutBack)
             .OnComplete(() =>
             {
-                GameManager.Instance?.CheckAllWinBlocksMatched();
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.CheckAllWinBlocksMatched(); // Fix for UNT0008: Avoid null propagation.
+                }
             });
     }
 
-    void HideAppearObject()
+    private void HideAppearObject()
     {
         if (appearObject == null || !appearObject.activeSelf) return;
 

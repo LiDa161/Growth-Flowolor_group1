@@ -27,10 +27,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
 
     private int currentLevelIndex = -1;
-    private List<FinalBlock> finalBlocks = new List<FinalBlock>();
+    private List<WinBlock> finalBlocks = new List<WinBlock>();
     private int moveCount = 0;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         ShowCanvas(canvasHome);
 
@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelButtons.Length; i++)
         {
             int level = i + 1;
-            levelButtons[i].onClick.AddListener(() => {
+            levelButtons[i].onClick.AddListener(() =>
+            {
                 LoadLevel(level);
             });
         }
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
         UpdateMoveCountText();
     }
 
-    void ShowCanvas(GameObject targetCanvas)
+    private void ShowCanvas(GameObject targetCanvas)
     {
         canvasHome.SetActive(targetCanvas == canvasHome);
         canvasGuide.SetActive(targetCanvas == canvasGuide);
@@ -227,9 +228,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void DisableOtherButtons(GameObject activeCanvas)
+    private void DisableOtherButtons(GameObject activeCanvas)
     {
-        Button[] allButtons = FindObjectsOfType<Button>(true);
+        Button[] allButtons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Button btn in allButtons)
         {
             bool inActiveCanvas = btn.transform.IsChildOf(activeCanvas.transform);
@@ -237,16 +238,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void EnableAllButtons()
+    private void EnableAllButtons()
     {
-        Button[] allButtons = FindObjectsOfType<Button>(true);
+        Button[] allButtons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (Button btn in allButtons)
         {
             btn.interactable = true;
         }
     }
 
-    void HideAllCanvases()
+    private void HideAllCanvases()
     {
         canvasHome.SetActive(false);
         canvasGuide.SetActive(false);
@@ -262,7 +263,7 @@ public class GameManager : MonoBehaviour
         return currentLevelIndex;
     }
 
-    public void RegisterWinBlock(FinalBlock block)
+    public void RegisterWinBlock(WinBlock block)
     {
         if (!finalBlocks.Contains(block))
         {
@@ -272,7 +273,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckAllWinBlocksMatched()
     {
-        foreach (FinalBlock block in finalBlocks)
+        foreach (WinBlock block in finalBlocks)
         {
             if (!block.IsMatched())
                 return;
