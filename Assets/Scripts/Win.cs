@@ -13,6 +13,12 @@ public class Win : MonoBehaviour
             {
                 winCanvas.SetActive(true);
             }
+            // Dừng thời gian khi thắng
+            TimerManager timer = FindObjectOfType<TimerManager>();
+            if (timer != null)
+            {
+                timer.StopTimer();
+            }
         }
     }
 }
