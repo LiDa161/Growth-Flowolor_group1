@@ -78,4 +78,9 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene("Level15");
     }
+    public void ResetLevel()
+    {
+        // Load lại scene hiện tại
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
