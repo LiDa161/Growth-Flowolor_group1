@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ClickableBlock
   - Target
+  - SkinObject
+  - ShopPreviewBlock
   layers:
   - Default
   - TransparentFX

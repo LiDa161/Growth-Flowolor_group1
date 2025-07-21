@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 1614208731202073402}
   m_Layer: 0
   m_Name: Plane.156
-  m_TagString: Untagged
+  m_TagString: SkinObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2599,6 +2599,9 @@ MonoBehaviour:
   - {fileID: 5281062382036906107}
   hiddenParents:
   - {fileID: 7383649361305159946}
+  maxTurns: 10
+  loseCanvas: {fileID: 0}
+  turnText: {fileID: 0}
 --- !u!1 &8257475854351733821
 GameObject:
   m_ObjectHideFlags: 0

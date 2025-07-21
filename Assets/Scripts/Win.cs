@@ -8,7 +8,13 @@ public class Win : MonoBehaviour
     {
         if (other.CompareTag("Target"))
         {
-            Debug.Log("Win!");
+            QuestManager.RegisterWin(); //when player wins, register the win in QuestManager
+
+            if (QuestManager.IsQuestComplete(QuestManager.QuestType.WinOnce))
+            {
+                Debug.Log("Player has completed the quest!");
+            }
+
             if (winCanvas != null)
             {
                 winCanvas.SetActive(true);

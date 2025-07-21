@@ -9,12 +9,12 @@ public class ClickableBlock : MonoBehaviour
     private bool isUp = false;
     private Vector3 originalLocalPos;
 
-    void Start()
+    private void Start()
     {
         originalLocalPos = transform.localPosition;
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         if (DOTween.IsTweening(transform.parent)) return;
 
@@ -23,6 +23,9 @@ public class ClickableBlock : MonoBehaviour
             transform.DOLocalMove(originalLocalPos, moveDuration);
             GameManagerMove.Instance.HideHiddenObjects();
             GameManagerMove.Instance.SetCurrentBlock(null);
+
+            //add into quest progress
+            QuestManager.RegisterBlockMove();
         }
         else
         {
@@ -41,5 +44,6 @@ public class ClickableBlock : MonoBehaviour
     }
 
     public Transform GetParent() => transform.parent;
+
     public float GetMoveDuration() => moveDuration;
 }
