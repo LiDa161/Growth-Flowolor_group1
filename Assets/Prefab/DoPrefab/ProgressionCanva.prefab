@@ -121,9 +121,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1958251325123384276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 554, y: 476}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1750262188557233764
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -170.1781, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 736551712861505386}
   - component: {fileID: 5398673826139652153}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Quest1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,9 +257,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1958251325123384276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 554, y: 421}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &736551712861505386
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quest:'
+  m_text: Quest1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06d34dde9340d1a408e261fc1e3188cd, type: 2}
   m_sharedMaterial: {fileID: 6399661440158221912, guid: 06d34dde9340d1a408e261fc1e3188cd, type: 2}
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -170.16084, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1088,8 +1088,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1958251325123384276}
+  - component: {fileID: 3340691460083639647}
   - component: {fileID: 6215291041577769746}
   - component: {fileID: 5183152790657715546}
+  - component: {fileID: 4028981035181109531}
   m_Layer: 5
   m_Name: QuestLogPanel
   m_TagString: Untagged
@@ -1116,9 +1118,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -978, y: -530}
+  m_AnchoredPosition: {x: -981, y: -530}
   m_SizeDelta: {x: 1956, y: 1060}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3340691460083639647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804595371130846578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1cea78eb0133f49a1d2cdee5cdfe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winQuestText: {fileID: 5398673826139652153}
+  moveBlockQuestText: {fileID: 786144109067776890}
 --- !u!222 &6215291041577769746
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1157,6 +1173,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4028981035181109531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804595371130846578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 6
+  m_Spacing: -900.01
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &7061893686934146288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,7 +1211,7 @@ GameObject:
   - component: {fileID: 6496724582069254191}
   - component: {fileID: 786144109067776890}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: Quest2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1189,9 +1231,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1958251325123384276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 554, y: 366}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6496724582069254191
@@ -1222,7 +1264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quest:'
+  m_text: Quest2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06d34dde9340d1a408e261fc1e3188cd, type: 2}
   m_sharedMaterial: {fileID: 6399661440158221912, guid: 06d34dde9340d1a408e261fc1e3188cd, type: 2}
@@ -1287,7 +1329,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -171.3901, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -1,34 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class QuestLogUI : MonoBehaviour
 {
-    public TextMeshProUGUI quest1Text;
-    public TextMeshProUGUI quest2Text;
+    public TextMeshProUGUI winQuestText;
+    public TextMeshProUGUI moveBlockQuestText;
 
     private void Start()
     {
-        UpdateQuestTexts();
-        QuestManager.OnQuestUpdated += UpdateQuestTexts;
+        RefreshQuests();
+        QuestManager.OnQuestUpdated += RefreshQuests;
     }
 
     private void OnDestroy()
     {
-        QuestManager.OnQuestUpdated -= UpdateQuestTexts;
+        QuestManager.OnQuestUpdated -= RefreshQuests;
     }
 
-    private void UpdateQuestTexts()
+    private void RefreshQuests()
     {
-        if (quest1Text != null)
-        {
-            bool moved = QuestManager.HasMovedOnce();
-            quest1Text.text = $"Move Once - {(moved ? "Completed" : "In Progress")}";
-        }
+        winQuestText.text = QuestManager.IsQuestComplete(QuestManager.QuestType.WinOnce)
+            ? "Completed: Win 1 game"
+            : "Unfinished: Win 1 game";
 
-        if (quest2Text != null)
-        {
-            bool won = QuestManager.HasWonOnce();
-            quest2Text.text = $"Win Once - {(won ? "Completed" : "In Progress")}";
-        }
+        moveBlockQuestText.text = QuestManager.IsQuestComplete(QuestManager.QuestType.MoveBlock)
+            ? "Completed: Move 1 block"
+            : "Unfinished: Move 1 block";
     }
 }
